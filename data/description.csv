@@ -1,5 +1,5 @@
 label,sublabel,description,styles,bgcolor
-もえるごみ,,,img/moyasu02.svg,#ea3b13
-もえないごみ,,,img/moyasanai02.svg,#733b96
-容器包装・資源ごみ,,,img/shigen02.svg,#77ae1f
-粗大ごみ,,,,#2dc7aa
+もえるごみ,,,img/moeru.svg,#ea3b13
+もえないごみ,,,img/moenai.svg,#733b96
+容器包装・資源ごみ,,,img/shigen.svg,#77ae1f
+粗大ごみ,,,img/sodai.svg,#2dc7aa
