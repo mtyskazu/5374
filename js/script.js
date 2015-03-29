@@ -20,9 +20,6 @@ var AreaModel = function() {
     休止期間（主に年末年始）かどうかを判定します。
   */
   this.isBlankDay = function(currentDate) {
-    if (!this.center) {
-        return false;
-    }
     var period = [this.center.startDate, this.center.endDate];
 
     if (period[0].getTime() <= currentDate.getTime() &&
@@ -65,8 +62,7 @@ var TrashModel = function(_lable, _cell, remarks) {
   this.mostRecent;
   this.dayList;
   this.mflag = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-  var monthSplitFlag=_cell.search(/:/)>=0
-  if (monthSplitFlag) {
+  if (_cell.search(/:/) >= 0) {
     var flag = _cell.split(":");
     this.dayCell = flag[0].split(" ");
     var mm = flag[1].split(" ");
@@ -96,22 +92,7 @@ var TrashModel = function(_lable, _cell, remarks) {
       this.regularFlg = 0;  // 定期回収フラグオフ
     }
   }
-  if (monthSplitFlag){
-    var monthList="";
-    for (var m in this.mflag) {
-      if (this.mflag[m]){
-        if (monthList.length>0){
-          monthList+=","
-        }
-        //mを整数化
-        monthList+=((m-0)+1)
-      }
-    };
-    monthList+="月 "
-    result_text=monthList+result_text
-  }
   this.dayLabel = result_text;
-
 
   this.getDateLabel = function() {
     var result_text = this.mostRecent.getFullYear() + "/" + (1 + this.mostRecent.getMonth()) + "/" + this.mostRecent.getDate();
@@ -287,7 +268,7 @@ var DescriptionModel = function(data) {
  * target.csvのモデルです。
  */
 var TargetRowModel = function(data) {
-  this.label = data[0];
+  this.type = data[0];
   this.name = data[1];
   this.notice = data[2];
   this.furigana = data[3];
@@ -424,7 +405,7 @@ $(function() {
           var row = new TargetRowModel(data[i]);
           for (var j = 0; j < descriptions.length; j++) {
             //一致してるものに追加する。
-            if (descriptions[j].label == row.label) {
+            if (descriptions[j].label == row.type) {
               descriptions[j].targets.push(row);
               break;
             }
@@ -450,7 +431,7 @@ $(function() {
     //直近の一番近い日付を計算します。
     areaModel.calcMostRect();
     //トラッシュの近い順にソートします。
-    areaModel.sortTrash();
+	areaModel.sortTrash();
     var accordion_height = window.innerHeight / descriptions.length;
     if(descriptions.length>4){
       accordion_height = window.innerHeight / 4.1;
